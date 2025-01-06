@@ -24,15 +24,15 @@ plt.show()
 y_train[0]
 
 
-#normalize ->manual scaling (xmax-min)/(max-min)
+#normalize -> manual scaling (xmax-min)/(max-min)
 X_train = X_train/255.0
 X_test = X_test/255.0
 
 #train the model compraised by 28x28 input neurons followed by 2 dense layers 
 model = keras.models.Sequential()
-#seira apo neurwnes opou den exoun kapoia sundesh metaksu tous. einai h arxh
+#series of uncorrelated neurons (starting point). 
 model.add(keras.layers.Flatten(input_shape=[28,28]))
-#kathe neurwnas ephreazetai apo olous tous neurwnes tou prohgoumenou layer
+#each neuron is affected by all the neurons of the previous layer
 #relu is the best activation function for gradient descend
 model.add(keras.layers.Dense(100, activation = "relu"))
 model.add(keras.layers.Dense(50, activation = "relu"))
@@ -45,8 +45,7 @@ model.summary()
 keras.utils.plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
 
 #compile
-#sparse categorical crossentropy -> xrhsimopoieitai opws to mean squared einai to loss functions mas kai
-#einai metro sugkrishs gia na kathgoriopoihsei to apotelesma se ena class
+#sparse categorical crossentropy -> it is used similarly to mean squared error, it is our loss function, and it is a benchmark for classifying the result into a category (class).
 model.compile(loss = 'sparse_categorical_crossentropy', 
               optimizer = "sgd",
               metrics=["accuracy"])
